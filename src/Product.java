@@ -7,7 +7,7 @@ public class Product {
     private int quantity;
     private LocalDate expirationDate = null;
     private String weight = null;
-    private static final ArrayList<String> pershiableProducts = new ArrayList<>();
+    private static final ArrayList<String> perishableProducts = new ArrayList<>();
     private static final ArrayList<String> shippable = new ArrayList<>();
 
     public Product(String name, double price, int quantity) {
@@ -17,7 +17,7 @@ public class Product {
     }
 
     public Product(String name, double price, int quantity, LocalDate expirationDate) {
-        if (!Product.pershiableProducts.contains(name)) {
+        if (!Product.perishableProducts.contains(name)) {
             System.out.println("Product " + name + "can't have expiration date it is not a perishable product.");
             return;
         }
@@ -36,7 +36,7 @@ public class Product {
             System.out.println("Product " + name + " can't have weight it is not a shippable product.");
             return;
         }
-        if (!Product.pershiableProducts.contains(name)) {
+        if (!Product.perishableProducts.contains(name)) {
             System.out.println("Product " + name + " can't have expiration date it is not a perishable product.");
             return;
         }
@@ -107,12 +107,12 @@ public class Product {
         this.expirationDate = expirationDate;
     }
 
-    public static ArrayList<String> getPershiableProducts() {
-        return pershiableProducts;
+    public static ArrayList<String> getperishableProducts() {
+        return perishableProducts;
     }
 
-    public static void addPershiableProduct(String product) {
-        pershiableProducts.add(product);
+    public static void addperishableProduct(String product) {
+        perishableProducts.add(product);
     }
 
     public static ArrayList<String> getShippable() {
@@ -123,17 +123,17 @@ public class Product {
         shippable.add(product);
     }
 
-    public boolean isPershiable() {
-        return pershiableProducts.contains(name);
+    public boolean isPerishable() {
+        return perishableProducts.contains(name);
     }
 
     public boolean isShippable() {
         return shippable.contains(name);
     }
 
-    public void addToPershiableProducts() {
-        if (!pershiableProducts.contains(name)) {
-            pershiableProducts.add(name);
+    public void addToperishableProducts() {
+        if (!perishableProducts.contains(name)) {
+            perishableProducts.add(name);
         }
     }
 

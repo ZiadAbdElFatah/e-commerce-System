@@ -6,7 +6,7 @@ public class Stock {
 
     public static void addProduct(Product product) {
         String key = product.getName();
-        if (product.isPershiable()) {
+        if (product.isPerishable()) {
             if (product.getExpirationDate() == null) {
                 System.out.println("Expiration date is required for perishable products.");
                 return;

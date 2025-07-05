@@ -1,10 +1,10 @@
-public class Costumer {
+public class Customer {
     private String name;
     private String address;
     private String phoneNumber;
     private double balance;
 
-    public Costumer(String name, String address, String phoneNumber, double balance) {
+    public Customer(String name, String address, String phoneNumber, double balance) {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;

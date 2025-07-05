@@ -1,10 +1,9 @@
 import java.util.ArrayList;
 
 public class Cart {
-    private static final ArrayList<Product> products = new ArrayList<>();
+    private ArrayList<Product> products = new ArrayList<>();
 
     void add (String name, int quantity) {
-        Stock stock = new Stock();
         Product product = Stock.getProduct(name);
         if (product != null) {
             if (product.getQuantity() >= quantity) {
@@ -20,7 +19,7 @@ public class Cart {
         }
     }
 
-    public static ArrayList<Product> getProducts() {
+    public ArrayList<Product> getProducts() {
         return products;
     }
 }

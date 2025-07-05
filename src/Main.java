@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        Product.addPershiableProduct("Biscuits");
-        Product.addPershiableProduct("Cheese");
+        Product.addperishableProduct("Biscuits");
+        Product.addperishableProduct("Cheese");
         Product.addShippable("Biscuits");
         Product.addShippable("Cheese");
         Product.addShippable("Mobile");
@@ -23,24 +23,24 @@ public class Main {
         cart.add("Mobile", 2);
         cart.add("Cheese", 5);
         cart.add("Mobile", 100);
-        Costumer costumer = new Costumer("Zeyad", "Street", "01010101010", 100000);
-        checkout(costumer, cart);
+        Customer customer = new Customer("Zeyad", "Street", "01010101010", 100000);
+        checkout(customer, cart);
     }
 
-    static void checkout(Costumer costumer, Cart cart) {
+    static void checkout(Customer costumer, Cart cart) {
         double subTotal = 0;
         boolean shippingStatus = false;
         Shipping shipping = new Shipping();
         ArrayList<String> checkoutDetails = new ArrayList<>();
-        if (Cart.getProducts().isEmpty()) {
+        if (cart.getProducts().isEmpty()) {
             System.out.println("Cart is empty.");
             return;
         }
         checkoutDetails.add("** Checkout receipt **");
-        for (Product product : Cart.getProducts()) {
+        for (Product product : cart.getProducts()) {
             String key = product.getName();
             Product stockProduct = Stock.getProducts().get(key);
-            if (product.isPershiable()) {
+            if (product.isPerishable()) {
                 if (product.isExpired()) {
                     System.out.println("Cannot checkout " + product.getName() + " as it is expired.");
                     return;
@@ -52,13 +52,13 @@ public class Main {
         }
         checkoutDetails.add("Subtotal " + subTotal);
         checkoutDetails.add("----------------------");
-        if (shipping.checkShipping()) {
+        if (shipping.checkShipping(cart)) {
             shippingStatus = true;
             checkoutDetails.add("Shipping details:");
-            checkoutDetails.addAll(Shipping.getShippingDetails());
+            checkoutDetails.addAll(shipping.getShippingDetails());
             checkoutDetails.add("Total weight " + shipping.getFinalWeight());
             checkoutDetails.add("----------------------");
-            Shipping.clearShippingDetails();
+            shipping.clearShippingDetails();
         } else {
             System.out.println("No shippable products in the cart.");
         }

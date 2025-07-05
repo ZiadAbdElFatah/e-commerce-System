@@ -1,18 +1,18 @@
 import java.util.ArrayList;
 
 public class Shipping {
-    private static final ArrayList<String> shippingDetails = new ArrayList<>();
+    private ArrayList<String> shippingDetails = new ArrayList<>();
     private double allWeight = 0;
     private String finalWeight;
 
-    public boolean checkShipping() {
+    public boolean checkShipping(Cart cart) {
         boolean shippingStatus = false;
-        if (Cart.getProducts().isEmpty()) {
+        if (cart.getProducts().isEmpty()) {
             System.out.println("Cart is empty. Cannot proceed with shipping.");
             return false;
         }
 
-        for (Product product : Cart.getProducts()) {
+        for (Product product : cart.getProducts()) {
             Product stockProduct = Stock.getProducts().get(product.getName());
             if (product.isShippable()) {
                 shippingStatus = true;
@@ -45,11 +45,11 @@ public class Shipping {
         }
     }
 
-    public static ArrayList<String> getShippingDetails() {
+    public ArrayList<String> getShippingDetails() {
         return shippingDetails;
     }
 
-    public static void clearShippingDetails() {
+    public void clearShippingDetails() {
         shippingDetails.clear();
     }
 
