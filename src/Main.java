@@ -3,11 +3,19 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        Stock.addProduct(new Biscuits(10, LocalDate.of(2026, 12, 31)));
-        Stock.addProduct(new TV(20));
-        Stock.addProduct(new TV(5));
-        Stock.addProduct(new Mobile(50));
-        Stock.addProduct(new Cheese(60, LocalDate.of(2025, 8, 30)));
+        Product.addPershiableProduct("Biscuits");
+        Product.addPershiableProduct("Cheese");
+        Product.addShippable("Biscuits");
+        Product.addShippable("Cheese");
+        Product.addShippable("Mobile");
+        Product.addShippable("TV");
+        Stock.addProduct(new Product("Biscuits", 200, 50, LocalDate.of(2026, 12, 31), "400g"));
+        Stock.addProduct(new Product("TV",10000, 20, "10Kg"));
+        Stock.addProduct(new Product("TV", 10000, 10, "10Kg"));
+        Stock.addProduct(new Product("Mobile", 30000, 50, "200g"));
+        Stock.addProduct(new Product("Cheese", 150, 60, LocalDate.of(2025, 8, 30), "200g"));
+        Stock.addProduct(new Product("Mobile scratch card", 10, 60));
+        Stock.addProduct(new Product("Mobile scratch card", 10, 60, "100g"));
         Cart cart = new Cart();
         cart.add("Biscuits", 5);
         cart.add("TV", 2);
@@ -32,8 +40,8 @@ public class Main {
         for (Product product : Cart.getProducts()) {
             String key = product.getName();
             Product stockProduct = Stock.getProducts().get(key);
-            if (stockProduct instanceof PerishableProduct) {
-                if (((PerishableProduct) stockProduct).isExpired()) {
+            if (product.isPershiable()) {
+                if (product.isExpired()) {
                     System.out.println("Cannot checkout " + product.getName() + " as it is expired.");
                     return;
                 }
@@ -47,9 +55,7 @@ public class Main {
         if (shipping.checkShipping()) {
             shippingStatus = true;
             checkoutDetails.add("Shipping details:");
-            for (String detail : Shipping.getShippingDetails()) {
-                checkoutDetails.add(detail);
-            }
+            checkoutDetails.addAll(Shipping.getShippingDetails());
             checkoutDetails.add("Total weight " + shipping.getFinalWeight());
             checkoutDetails.add("----------------------");
             Shipping.clearShippingDetails();

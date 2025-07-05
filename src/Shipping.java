@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Shipping {
-    private static ArrayList<String> shippingDetails = new ArrayList<>();
+    private static final ArrayList<String> shippingDetails = new ArrayList<>();
     private double allWeight = 0;
     private String finalWeight;
 
@@ -14,10 +14,9 @@ public class Shipping {
 
         for (Product product : Cart.getProducts()) {
             Product stockProduct = Stock.getProducts().get(product.getName());
-            if (stockProduct instanceof Shippable) {
-                Shippable shippableProduct = (Shippable) stockProduct;
+            if (product.isShippable()) {
                 shippingStatus = true;
-                String weight = shippableProduct.getWeight();
+                String weight = stockProduct.getWeight();
                 int quantity = product.getQuantity();
                 weight = getTotalWeight(weight, quantity);
                 shippingDetails.add(quantity + "x " + product.getName() + " " + weight);

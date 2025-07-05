@@ -3,6 +3,7 @@ public class Costumer {
     private String address;
     private String phoneNumber;
     private double balance;
+
     public Costumer(String name, String address, String phoneNumber, double balance) {
         this.name = name;
         this.address = address;
@@ -37,6 +38,7 @@ public class Costumer {
     public double getBalance() {
         return balance;
     }
+
     public void setBalance(double balance) {
         this.balance = balance;
     }
